@@ -19,7 +19,7 @@ use pocketmine\command\Command;
 use pocketmine\utils\TextFormat;
 
 class Main extends PluginBase implements Listener{
-	private const AIMSTICK_TAG = 'tpstick';
+	private const AIMSTICK_TAG = 'compasstp';
 
 	public function onEnable() : void{
 		$this->getServer()->getPluginManager()->registerEvents($this, $this);
@@ -27,7 +27,7 @@ class Main extends PluginBase implements Listener{
 
 	public function onCommand(CommandSender $sender, Command $command, string $label, array $args) : bool{
 		switch($command->getName()){
-			case 'tpstick':
+			case 'compasstp':
 				if(!($sender instanceof Player)){
 					if(!isset($args[1]) or ($player = $sender->getServer()->getPlayer($args[1])) === null){
 						$sender->sendMessage(TextFormat::RED . "You must specify a player from the console");
@@ -36,11 +36,11 @@ class Main extends PluginBase implements Listener{
 				}else{
 					$player = $sender;
 				}
-				$stick = ItemFactory::get(Item::STICK);
-				$stick->setCustomName("Teleporter Stick");
+				$stick = ItemFactory::get(Item::COMPASS);
+				$stick->setCustomName("Compass Teleport");
 				$stick->setNamedTagEntry(new ByteTag(self::AIMSTICK_TAG, 1));
 				$player->getInventory()->addItem($stick);
-				Command::broadcastCommandMessage($sender, "Gave " . $sender->getName() . " a teleporter stick");
+				Command::broadcastCommandMessage($sender, "Gave " . $sender->getName() . " a teleporter compass");
 				return true;
 			default:
 				return false;
@@ -57,7 +57,7 @@ class Main extends PluginBase implements Listener{
 	public function onItemUse(PlayerInteractEvent $event){
 		if($event->getAction() === PlayerInteractEvent::RIGHT_CLICK_AIR and $event->getItem()->getNamedTagEntry(self::AIMSTICK_TAG) !== null){
 			$player = $event->getPlayer();
-			if(!$player->hasPermission('aimtp.use')){
+			if(!$player->hasPermission('compass.teleport.use')){
 				$player->sendMessage(TextFormat::RED . 'You don\'t have permission to use this item');
 				return;
 			}
