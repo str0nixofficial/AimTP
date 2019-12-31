@@ -1,21 +1,21 @@
-name: AimTP
+name: CompassTeleport
 main: dktapps\AimTP\Main
-version: 0.1.0
-api: 3.5.0
+version: 1.0
+api: 3.10.0
 load: POSTWORLD
 author: dktapps
-description: Teleport where your crosshair is aiming
+description: Teleport clicking with a compass to where your crosshair is aiming
 website: https://github.com/dktapps-pm-pl/AimTP
 commands:
- tpstick:
-  description: "Gives the player a teleporter stick"
-  usage: "/tpstick"
-  permission: aimtp.give
+ compasstp:
+  description: "Gives the player a compass"
+  usage: "/compasstp"
+  permission: compass.teleport
 
 permissions:
- aimtp.give:
+ compass.teleport:
   default: op
-  description: "Allows the player to use /tpstick"
- aimtp.use:
+  description: "Allows the player to use /compasstp"
+ compass.teleport.use:
   default: op
-  description: "Allows the player to use a teleporter stick item"
+  description: "Allows the player to use a teleporter compass item"
